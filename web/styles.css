@@ -249,6 +249,8 @@ img { max-width: 100%; display: block; }
 .server-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; border-radius: 20px; background: rgba(255,255,255,.04); border: 1px solid var(--stroke); font-size: 10.5px; color: var(--muted); font-weight: 600; }
 .server-pill i { width: 6px; height: 6px; border-radius: 50%; background: var(--faint); }
 .server-pill.online i { background: var(--mint); box-shadow: 0 0 8px var(--mint); }
+.server-pill.down { border-color: rgba(255,124,138,.28); color: #ffb3bb; }
+.server-pill.down i { background: var(--danger); box-shadow: 0 0 8px var(--danger); }
 @keyframes riseIn { from { opacity: 0; transform: translateY(18px) scale(.98); } to { opacity: 1; transform: none; } }
 
 /* ---------- app shell ---------- */

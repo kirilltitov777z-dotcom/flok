@@ -33,6 +33,9 @@ MAN="$AND/app/src/main/AndroidManifest.xml"
 if [ -f "$MAN" ] && ! grep -q 'screenOrientation' "$MAN"; then
   sed -i 's|android:name=".MainActivity"|android:name=".MainActivity"\n            android:screenOrientation="portrait"|' "$MAN" || true
 fi
+if [ -f "$MAN" ] && ! grep -q 'usesCleartextTraffic' "$MAN"; then
+  sed -i 's|<application|<application\n        android:usesCleartextTraffic="true"|' "$MAN" || true
+fi
 
 STR="$RES/values/strings.xml"
 if [ -f "$STR" ]; then

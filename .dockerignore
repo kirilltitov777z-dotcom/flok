@@ -1,0 +1,10 @@
+.git
+.github
+node_modules
+android
+dist
+desktop
+assets
+scripts
+server/data.json
+*.log

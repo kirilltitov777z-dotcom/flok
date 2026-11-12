@@ -123,6 +123,7 @@
     auth.classList.remove("hidden");
     const server = serverInfo();
     const net = S.mode === "cloud";
+    const down = net && !!ui.bootError;
     auth.innerHTML = `<div class="auth-wrap">
       <div class="auth-brand">
         <span class="logo-orb">${IC("chat")}</span>
@@ -134,7 +135,7 @@
           <button class="seg-btn ${!isReg ? "active" : ""}" data-act="auth-mode" data-mode="login">Вход</button>
           <button class="seg-btn ${isReg ? "active" : ""}" data-act="auth-mode" data-mode="register">Создать</button>
         </div>
-        <p class="auth-sub">${isReg ? "Ник и пароль — всё, что нужно. <b>E-mail по желанию</b>, чтобы не потерять аккаунт." : (net ? "Вход на сервере Flok — здесь реальные люди." : "С возвращением. Твои подарки и Flok на месте.")}</p>
+        <p class="auth-sub">${isReg ? "Ник и пароль — всё, что нужно. <b>E-mail по желанию</b>, чтобы не потерять аккаунт." : (down ? "Flok-сервер не отвечает. Проверь адрес сети или вернись в локальный режим." : net ? "Вход на сервере Flok — здесь реальные люди." : "С возвращением. Твои подарки и Flok на месте.")}</p>
         <form id="authForm" data-mode="${mode}" class="form-stack" autocomplete="on">
           ${isReg ? `<div class="field">${IC("user")}<input name="name" placeholder="Как тебя зовут" maxlength="40" autocomplete="nickname"></div>` : ""}
           <div class="field">
@@ -152,7 +153,7 @@
         </form>
         <div class="auth-foot">
           <button class="mini-link" data-act="demo">Попробовать без регистрации ${IC("arrow", "sm")}</button>
-          <button class="server-pill ${net ? "online" : ""}" data-act="server-sheet"><i></i>${net ? "Сеть Flok подключена" : "Локальный режим · данные на устройстве"}</button>
+          <button class="server-pill ${net ? (down ? "down" : "online") : ""}" data-act="server-sheet"><i></i>${net ? (down ? "Сервер недоступен" : "Сеть Flok подключена") : "Локальный режим · данные на устройстве"}</button>
           <div class="auth-note">${net ? "Flok-сервер: " + U.esc(server.replace(/^https?:\/\//, "")) : "Демо-режим: аккаунты, чаты и маркет работают на этом устройстве. Подключи сервер, чтобы общаться с реальными людьми."}</div>
         </div>
       </div>
@@ -217,13 +218,24 @@
   /* ---------- boot ---------- */
   async function init() {
     const boot = $("#boot");
-    try { await S.boot(); } catch (e) { console.error(e); }
+    let bootError = "";
+    try {
+      const result = await S.boot();
+      if (result && result.error) {
+        bootError = /войти/i.test(result.error) ? "Сессия истекла — войди снова" : result.error;
+        if (!/Сессия истекла/.test(bootError)) ui.bootError = bootError;
+      }
+    } catch (e) { bootError = e.message; console.error(e); }
     ui.booted = true;
     setTimeout(() => {
       boot.classList.add("out");
       setTimeout(() => boot.remove(), 500);
       if (S.me()) showApp();
-      else { ui.authMode = "login"; showAuth(); }
+      else {
+        ui.authMode = "login";
+        showAuth();
+        if (bootError) setTimeout(() => toast("Flok-сервер недоступен: " + bootError, { emoji: "📡", ms: 6000 }), 700);
+      }
     }, 450);
     S.on(function (type, data) { if (FA.onStoreEvent) FA.onStoreEvent(type, data); });
     setInterval(() => {

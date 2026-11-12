@@ -1,6 +1,6 @@
-const CACHE = "flok-shell-v1.0.0";
+const CACHE = "flok-shell-v1.1.0";
 const ASSETS = [
-  "./", "index.html", "styles.css", "catalog.js", "core.js", "ui.js", "chats.js", "market.js", "clicker.js", "profile.js", "boot.js",
+  "./", "index.html", "styles.css", "catalog.js", "core.js", "cloud.js", "ui.js", "chats.js", "market.js", "clicker.js", "profile.js", "boot.js",
   "manrope-latin.woff2", "manrope-cyrillic.woff2", "icon-192.png", "icon-512.png", "manifest.webmanifest"
 ];
 self.addEventListener("install", (e) => {

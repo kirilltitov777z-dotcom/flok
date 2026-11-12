@@ -40,8 +40,8 @@ def icon_color(x, y):
         c = over(c, (1, 0.995, 0.97), .95)
         tint = math.exp(-(((x - .42) ** 2 + (y - .36) ** 2) / .045))
         c = over(c, MINT, tint * .10)
-        if .33 < y < .40 and .30 < x < .58:
-            c = over(c, (1, 1, 1), .5)
+        hl = math.exp(-(((x - .42) ** 2) / .028 + ((y - .355) ** 2) / .0022))
+        c = over(c, (1, 1, 1), hl * .24)
     for dx in (.385, .50, .615):
         if math.hypot(x - dx, y - .465) < .031:
             c = over(c, DARK, .82)
