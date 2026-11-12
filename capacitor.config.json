@@ -1,0 +1,13 @@
+{
+  "appId": "com.narezany.flok",
+  "appName": "Flok",
+  "webDir": "web",
+  "server": {
+    "androidScheme": "https",
+    "cleartext": true
+  },
+  "android": {
+    "allowMixedContent": true,
+    "backgroundColor": "#070b10"
+  }
+}

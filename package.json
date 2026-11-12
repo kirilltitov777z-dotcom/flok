@@ -1,0 +1,23 @@
+{
+  "name": "flok-messenger",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Flok — органический мессенджер с подарками, маркетом, каналами и кликером",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node server/server.js",
+    "cap:add": "cap add android",
+    "cap:sync": "cap sync android",
+    "cap:open": "cap open android",
+    "test:web": "node scripts/test-local.js"
+  },
+  "dependencies": {
+    "@capacitor/core": "^7.0.0",
+    "express": "^4.21.2",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^7.0.0",
+    "@capacitor/cli": "^7.0.0"
+  }
+}

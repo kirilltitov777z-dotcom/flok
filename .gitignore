@@ -1,0 +1,10 @@
+node_modules/
+android/
+dist/
+artifacts/
+desktop/web/
+*.log
+.DS_Store
+server/data.json
+server/.data/
+package-lock.json
